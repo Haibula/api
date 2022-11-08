@@ -1,18 +1,20 @@
 package com.example.api.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 
 @Entity
 public class Students {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
+
     private Long id;
     private String name;
     private LocalDate dob;
+    private int age;
 
     public Students() {
     }
@@ -20,12 +22,14 @@ public class Students {
     public Students(String name, LocalDate dob) {
         this.name = name;
         this.dob = dob;
+        this.age = Period.between(dob,LocalDate.now()).getYears();
     }
 
     public Students(Long id, String name, LocalDate dob) {
         this.id = id;
         this.name = name;
         this.dob = dob;
+        this.age = Period.between(dob,LocalDate.now()).getYears();
     }
 
     public Long getId() {
@@ -52,12 +56,21 @@ public class Students {
         this.dob = dob;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "Students{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dob=" + dob +
+                ", age=" + age +
                 '}';
     }
 }

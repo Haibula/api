@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,11 @@ public class StudentService {
     private StudentRepositories studentRepositories;
 
     public List<Students> list() {
-
         return studentRepositories.findAll();
     }
 
     public void add(Students students) {
-
+        students.setAge(Period.between(students.getDob(), LocalDate.now()).getYears());
+        studentRepositories.save(students);
     }
 }
