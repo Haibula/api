@@ -21,7 +21,14 @@ public class StudentService {
     }
 
     public void add(Students students) {
-        students.setAge(Period.between(students.getDob(), LocalDate.now()).getYears());
+        if (students.getDob() != null) {
+            students.setAge(Period.between(students.getDob(), LocalDate.now()).getYears());
+        }
         studentRepositories.save(students);
     }
+
+    public void delete(Long id) {
+        studentRepositories.deleteById(id);
+    }
+
 }

@@ -5,6 +5,7 @@ import com.example.api.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -25,4 +26,10 @@ public class StudentController {
         studentService.add(students);
         return studentService.list();
     }
+
+    @DeleteMapping("/item/{id}")
+    public void delete(@PathVariable Long id) {
+        studentService.delete(id);
+    }
+
 }
